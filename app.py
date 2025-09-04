@@ -111,21 +111,4 @@ if uploaded_file:
         csv = result_df.to_csv(index=False).encode()
         st.download_button("📥 Download Predictions", csv, "lt_fincome_predictions.csv")
 
-    # ------------------------------
-    # Feature Importance
-    # ------------------------------
-    st.subheader("📌 Feature Importance (SHAP)")
-    if st.button("Show SHAP Summary Plot"):
-        model = load_model()
-        explainer = shap.TreeExplainer(model)
-        shap_sample = X_train.sample(min(1000, X_train.shape[0]), random_state=42)
-        shap_values = explainer.shap_values(shap_sample)
-
-        fig2 = plt.figure()
-        shap.summary_plot(shap_values, shap_sample, show=False)
-        st.pyplot(fig2)
-
-else:
-    st.info("👆 Please upload an Excel (.xlsx) file to begin.")
-
-st.caption("💡 Tip: Upload the sample Excel data used in training for best results.")
+    
